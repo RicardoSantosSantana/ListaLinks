@@ -23,7 +23,6 @@ export default function Card({ data } = Props) {
     ShowModal('modalDelete')
   }
 
-
   return (
 
     <div className="col">

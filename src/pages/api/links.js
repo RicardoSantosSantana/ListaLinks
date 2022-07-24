@@ -1,6 +1,6 @@
 import dbPool from "../../utils/PostgresConnection"
 
-export default async (req, res) => {
+export default async function handler(req, res) {
 
   if (req.method === 'POST') {
     
@@ -22,7 +22,6 @@ export default async (req, res) => {
     }
     
   }
-
 
   if (req.method === 'PUT') {
     
