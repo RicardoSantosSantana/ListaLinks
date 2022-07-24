@@ -20,8 +20,7 @@ export default function AuthProvider(Props) {
     }
     useEffect(()=>{        
         const fetchData = async () => {
-            const res = await fetch(
-           "http://localhost:3000/api/links");
+            const res = await fetch("/api/links");
             const posts = await res.json();
             setData(posts);
             setDataList(posts);
