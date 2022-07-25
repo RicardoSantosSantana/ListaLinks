@@ -6,9 +6,9 @@ import ModalDelete from "./ModalDelete"
 export default function Title() {
   return (
     <section className=" container">
-      <div className="row py-lg-5">
-        <div className="col-lg-6 col-md-8 mx-auto">
-          <h1 className="fw-light">USEFUL LINKS</h1>
+      <div className="row">
+        <div className="col-12 mx-auto">
+          <h1 className="mt-4 mb-3 display-6"><strong>USEFUL LINKS</strong></h1>
           <Search />
           <BtnInserir />
           <Modal />

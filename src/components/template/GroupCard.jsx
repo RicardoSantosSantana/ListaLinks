@@ -1,9 +1,14 @@
 import { useAuth } from "../../context/AuthContext"
-import Card from "./Card"
+import Accordion from "./Accordion"
+
 
 export default function GroupCard(){
   
     const { DataList } = useAuth()   
-    return  DataList.map( el => <Card data = { el } key={ el.id } /> )
+    return (
+        <div className="accordion" id="ListAccordion">
+        {   DataList.map( el => <Accordion data = { el } key={ el.id } /> ) }
+        </div>
+        )
    
 }

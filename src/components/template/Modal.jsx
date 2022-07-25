@@ -6,7 +6,7 @@ export default function Modal() {
     return (
 
         
-        <div className="modal fade" id="modalForm" tabIndex="-1" aria-labelledby="modalFormLabel" aria-hidden="true">
+        <div className="modal fade modal-fullscreen" id="modalForm" tabIndex="-1" aria-labelledby="modalFormLabel" aria-hidden="true">
             <div className="modal-dialog">
                 <div className="modal-content">
                     <div className="modal-header">

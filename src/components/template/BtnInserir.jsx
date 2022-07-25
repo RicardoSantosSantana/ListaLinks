@@ -13,9 +13,9 @@ export default function BtnInserir(){
       }
           
     return (
-        <div className="pt-2">
+        <div className="pt-2 mb-2">
             <button type="button" className="btn btn-primary" onClick={()=>inserirNovoLink()} >
-                Inserir Link
+                adicionar novo 
             </button>
         </div>
     )
