@@ -1,9 +1,16 @@
-import { useState } from "react";
-import { useAuth } from "../context/AuthContext"
 import Spinner from "./Spinner";
-import { CloseModal } from "../../utils/Functions"
+import React, { useState } from 'react';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import { useAuth } from "../context/AuthContext";
 
 export default function ModalDelete() {
+
+    const { 
+        setShowModalDelete, 
+        setCloseModalDelete,
+        statusModalDelete } = useAuth()
+
 
     const { getDataList, HTTP_SELECT_METHOD } = useAuth()
     const [toggleOnSave, setToggleOnSave] = useState(true)
@@ -41,33 +48,30 @@ export default function ModalDelete() {
 
     }
     return (
-        <div className="modal fade" id="modalDelete" tabIndex="-1" aria-labelledby="modalDeleteLabel" aria-hidden="true">
 
-            <div className="modal-dialog">
-                <div className="modal-content">
-                    <div className="modal-header">
-                        <h5 className="modal-title"><div id="titleDelete"></div></h5>
-                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div className="modal-body">
-                        <p>Are you sure ?</p>
-                        <input type="hidden" id="id_delete" name="id_delete"></input>
-                    </div>
-                    <div className="modal-footer">
+        <Modal show={statusModalDelete} onHide={setCloseModalDelete}>
+            <Modal.Header closeButton>
+                <Modal.Title><span id="titleDelete"></span></Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                {toggleOnSave ? (
+                    <>
+                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" onClick={(event) => deleteCallAPI(event)} className="btn btn-danger">Delete</button>
+                    </>
+                ) :
+                    <Spinner />}
+            </Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={setCloseModalDelete}>
+                    Close
+                </Button>
+                <Button variant="primary" onClick={setCloseModalDelete}>
+                    Save Changes
+                </Button>
+            </Modal.Footer>
+        </Modal>
 
-                        {toggleOnSave ? (
-                            <>
-                                <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" onClick={(event)=>deleteCallAPI(event)} className="btn btn-danger">Delete</button>
-                            </>
-                        ) :
-                            <Spinner />}
 
-
-                    </div>
-
-                </div>
-            </div>
-        </div>
     )
 }

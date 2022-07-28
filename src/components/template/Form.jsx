@@ -1,13 +1,14 @@
 import { useState } from "react";
 import { useAuth } from "../context/AuthContext"
 import Spinner from "./Spinner";
-import { CloseModal } from "../../utils/Functions"
+import DropdownCategorias from  "../template/DropdownCategorias"
 
 export default function Form() {
 
-  const { getDataList, HTTP_SELECT_METHOD } = useAuth()
-  const [toggleOnSave, setToggleOnSave] = useState(true)
+  const { getAPILinks, HTTP_SELECT_METHOD, setHideFormModal,session } = useAuth()
 
+  const [toggleOnSave, setToggleOnSave] = useState(true)
+  
   const handleSubmit = async (event) => {
 
     event.preventDefault()
@@ -15,11 +16,13 @@ export default function Form() {
 
     const endpoint = '/api/links'
     const data = {
+      email: session.user.email,
       title: event.target.title.value,
       link: event.target.link.value,
       description: event.target.description.value,
+      category:event.target.category.value,
       id: event.target.id.value,
-      id_user: 1,
+     
     }
     const options = {
       method: HTTP_SELECT_METHOD.method,
@@ -27,45 +30,44 @@ export default function Form() {
       body: JSON.stringify(data),
     }
  
-    const options3 = {
-      method: HTTP_SELECT_METHOD.method,
-      headers: { 'Content-Type': 'application/json' },
-      body: data,
-    }
-   
     fetch(endpoint, options)
       .then(response => response.json())
-      .then(result => {        
-
+      .then(result => {
         if (result.error){
           console.log(result.message)
           alert(result.message)
         }
         else {
-          getDataList(result)
-          CloseModal('modalForm')  
+          console.log(result)
+          getAPILinks(result)
+          setHideFormModal(false)
         } 
       
         setToggleOnSave(true)
-      });
+    });
 
 
   }
+  
   return (
 
     <form onSubmit={handleSubmit}>
       <input type="hidden" id="id" name="id"></input>
-      <input type="hidden" id="id_user" name="id_user"></input>
+      <input type="hidden" id="email" name="email"></input>
       <div className="mb-3">
-        <label htmlFor="title" className="form-label">Títle</label>
+        <label htmlFor="title" className="form-label"><strong>Títle</strong></label>
         <input type="text" className="form-control" id="title" name="title" rows="3" required></input>
       </div>
       <div className="mb-3">
-        <label htmlFor="link" className="form-label">Link</label>
+        <label htmlFor="link" className="form-label"><strong>Link</strong></label>
         <input type="text" className="form-control" id="link" name="link" placeholder="http://seulink.com.br"></input>
       </div>
       <div className="mb-3">
-        <label htmlFor="description" className="form-label">Description</label>
+        <label htmlFor="category" className="form-label"><strong>Category</strong></label>
+        <DropdownCategorias/>
+      </div>
+      <div className="mb-3">
+        <label htmlFor="description" className="form-label"><strong>Description</strong></label>
         <textarea className="form-control" id="description" name="description" rows="3" required></textarea>
       </div>
       {

@@ -11,10 +11,15 @@ export function useAuth() {
 
 export default function AuthProvider(Props) {
     const { data: session } = useSession();
+    
+    const [ statusModalLinks, setStatusModalLinks ] = useState(false);
+    const [ statusModalDelete, setStatusModalDelete ] = useState(false);
 
     const [DataList, setDataList] = useState([])
     const [data, setData] = useState([])
+
     const [DataListaChange, setDataListaChange] = useState([])
+    
     const [HTTP_SELECT_METHOD, setHTTP_SELECT_METHOD] = useState({})
     
     const setHTTPMethod = (method) =>{
@@ -24,28 +29,42 @@ export default function AuthProvider(Props) {
     useEffect(()=>{
 
         if(session) {
+
+            const email = session.user.email;           
             const fetchData = async () => {
-            const res = await fetch("/api/links");
-            const posts = await res.json();
-            setData(posts);
-            setDataList(posts);
+                const res = await fetch(`/api/links?email=${email}`);
+                const posts = await res.json();
+                setData(posts);
+                setDataList(posts);
             };
             fetchData();
         }
  
     },[DataListaChange,session])
  
+    
 
+    const setShowModalDelete = () =>{
+        setStatusModalDelete(true);
+    }
+    const setCloseModalDelete = () =>{
+        setStatusModalDelete(false);
+    }
+    
+    const setShowFormModal = () =>{
+        setStatusModalLinks(true);
+    }
+    const setHideFormModal = () =>{
+        setStatusModalLinks(false);
+    }
     const setList = (value) => {
         setDataList(value)
-    }
-   
+    }   
     const search = (e) => {
         const filterValue = FilterLinksByText(e.target.value, data)
         setDataList(filterValue)
     }
-
-    const getDataList = (e) =>{
+    const getAPILinks = (e) =>{
         setDataListaChange(e)
     }
     const value = {
@@ -53,9 +72,16 @@ export default function AuthProvider(Props) {
         DataList,    
         setList,
         search,
-        getDataList,
+        getAPILinks,
         HTTP_SELECT_METHOD,
-        setHTTPMethod
+        setHTTPMethod,
+        statusModalLinks,
+        setShowFormModal,
+        setHideFormModal,
+        session,
+        setShowModalDelete, 
+        setCloseModalDelete,
+        statusModalDelete
     };
 
     return (

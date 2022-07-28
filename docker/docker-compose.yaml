@@ -11,6 +11,17 @@ services:
       - "3306:3306"
     volumes:
       - ./mysql:/var/lib/mysql
+  shadow:
+    image: mysql:8.0.27
+    container_name: shadow
+    tty: true
+    stdin_open: true    
+    env_file:
+      ./.env 
+    ports:
+      - "3309:3306"
+    volumes:
+      - ./shadow:/var/lib/mysql
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: pma

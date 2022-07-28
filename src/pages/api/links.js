@@ -1,23 +1,26 @@
-import dbPool from "../../utils/PostgresConnection"
+import { PrismaClient } from '@prisma/client'
+
+const prisma = new PrismaClient()
 
 export default async function handler(req, res) {
 
   if (req.method === 'POST') {
     
     try {
-      const { id, id_user, title, link, description } = req.body
+      const { email, title, link, description, category } = req.body
 
-      if (!id_user || !title || !description) {
+      if (!email || !title || !description) {
         return res.status(422).send({ message:'Missing one or more fields', error: 'Missing one or more fields' })
       }
 
-        const LINKS = await dbPool.query('INSERT INTO LINKS(id_user, title, link, description ) VALUES($1, $2, $3, $4) RETURNING id',
-         [id_user, title, link, description])
+      const links = await prisma.links.create({
+        data: { email, title, link, description, category }
+      })      
 
-      res.status(200).json(LINKS)
+      res.status(200).json(links)
 
     } catch (error) {
-      // console.error(error);
+       console.error(error);
       res.status(500).send({ message: "Error creating on the server", error: error })
     }
     
@@ -26,37 +29,33 @@ export default async function handler(req, res) {
   if (req.method === 'PUT') {
     
     try {
-      const { id, id_user, title, link, description } = req.body
- 
-      if (!id_user || !title || !description || !id) {
+      const { id, email, title, link, description, category } = req.body
+
+      if (!email || !title || !description || !id) {
         return res.status(422).send({ message:'Missing one or more fields', error: 'Missing one or more fields' })
       }
 
-      const sql =  'UPDATE links SET title=$1, link=$2, description=$3 WHERE id=$4 '
-        
-      const LINKSupdate = await dbPool.query(sql, [title, link, description,id]) 
+      const links = await prisma.links.update({
+        where: { id } ,
+        data: { email, title, link, description, category }
+      })      
 
-      res.status(200).json(LINKSupdate)
+      res.status(200).json(links)
 
-    } catch (error) {      
-      res.status(500).send({ message: "Error update on the server", error: error })
+    } catch (error) {
+       console.error(error);
+      res.status(500).send({ message: "Error creating on the server", error: error })
     }
   }
   
   if (req.method === 'GET') {
 
-    // dbPool.query('SELECT * FROM links', (error, results) => {
-    //   if (error) {
-    //     return res.status(400).send({ message:'Error on Get data', error: 'Error Select Data' })
-    //   }
-    //   res.status(200).json(results.rows)
-    // })    
-    const data = [
-      { id:1,link:'https://youtube.com.br',title:'YouTube é o titulo', description:'aqui uma breve descrição',id_user:1},
-      { id:2,link:'https://recibonline.com',title:'ReciboOnline é o titulo', description:'segunda uma breve descrição',id_user:1}
-    ]
+      const email = req.query.email;       
+      const links = await prisma.links.findMany({
+        where: { email }
+      })      
+      await res.status(200).json(links)
 
-    res.status(200).json(data)
   }
 
 

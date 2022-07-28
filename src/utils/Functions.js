@@ -1,3 +1,5 @@
+import { Links } from "./Links"
+
 export const FilterLinksByText = (filtro,listData) => listData.filter(el=>{ 
     
     const title = el.title?.toLowerCase();
@@ -20,18 +22,19 @@ export const FilterLinksbyId = (id,listData) => listData.filter(el=>{
   
 export const Element = elementID => document.getElementById(elementID)
 
-export const PutDataOnForm = (data,arrayFields) => arrayFields.forEach((key) => {
+export const PutDataOnForm = (data) => Links.fields.forEach((key) => {
   if(Element(key)){
     Element(key).value = data[0][key]
   }
 })
-export const ClearDataOnForm = (arrayFields) => arrayFields.forEach((key) =>{ 
+export const ClearDataOnForm = () => Links.fields.forEach((key) =>{ 
   if(Element(key)){
     Element(key).value = ""
   }
 })
 
 export const ShowModal = (idModal) =>{
+  
   const options={backdrop:true,keyboard:true,focus:true}  
   const myModal = new bootstrap.Modal(document.getElementById(idModal),options)
   myModal.show()

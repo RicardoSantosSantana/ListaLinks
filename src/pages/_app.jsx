@@ -3,14 +3,9 @@ import 'bootstrap/dist/css/bootstrap.css'
 import AuthProvider from '../components/context/AuthContext';
 
 import { SessionProvider } from "next-auth/react";
-import { useEffect } from 'react';
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   
-  useEffect(() => {
-    import("bootstrap/dist/js/bootstrap");
-}, []);
-
   return (
 
     <>

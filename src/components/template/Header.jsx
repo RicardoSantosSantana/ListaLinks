@@ -32,11 +32,11 @@ export default function Header() {
             <div className="navbar navbar-dark bg-dark shadow-sm">
                 <div className="container">
                     <a href="#" className="navbar-brand d-flex align-items-center">
-                        <Image alt="logo"   src={"/logo-save-link.png"} width={50} height={50} />
-                        <strong>Remember Link</strong>
+                        <Image alt="logo"   src={"/logo-save-link.png"} width={40} height={40} />
+                        <strong>&nbsp;Remember Link</strong>
                     </a>
-                    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">                        
-                        <Image src={imagem ? imagem : '/logo-save-link.png'}  height={48}  width={48}  alt={name}/>
+                    <button className="navbar-toggler p-0 m-0   " type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">                        
+                        <Image src={imagem ? imagem : '/logo-save-link.png'}  height={45}  width={45}  alt={name}/>
                     </button>
                 </div>
             </div>

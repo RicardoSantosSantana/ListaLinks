@@ -5,10 +5,14 @@ generator client {
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
   
-model Users {
-  id   Int @id @default(autoincrement())
-  name String
-  email String  
+model Links {
+  id          String  @id @default(uuid())
+  title       String  @db.VarChar(101) 
+  link        String? @db.VarChar(400)
+  description String  @db.Text
+  email       String
+  category    String @db.VarChar(20) @default("text")
 }

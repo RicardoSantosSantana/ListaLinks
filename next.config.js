@@ -4,7 +4,10 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['avatars.githubusercontent.com'],
+    domains: [
+      'avatars.githubusercontent.com',
+      'cdn.lifehack.org',"*",
+  ],
   },
 }
 

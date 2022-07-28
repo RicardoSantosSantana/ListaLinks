@@ -1,14 +1,15 @@
 import { useAuth } from "../context/AuthContext"
-import Accordion from "./Accordion"
+import Accordion from 'react-bootstrap/Accordion';
+import List from "./List"
 
 
 export default function GroupCard(){
   
     const { DataList } = useAuth()   
     return (
-        <div className="accordion" id="ListAccordion">
-        {   DataList.map( el => <Accordion data = { el } key={ el.id } /> ) }
-        </div>
+        <Accordion defaultActiveKey="0" >
+        {   DataList.map( el => <List data = { el } key={ el.id } /> ) }
+        </Accordion>
         )
    
 }

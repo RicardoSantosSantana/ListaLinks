@@ -22,10 +22,13 @@
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx",
-    "src/*.ts"
-, "src/pages/api/auth/[...nextauth].js", "src/pages/api/auth/signin.jsx", "src/pages/api/users.js", "src/db/config/config.js", "src/pages/error.js", "src/pages/middleware.tse.js", "src/pages/app/error.jsx" ],
-  "exclude": [
+    "**/*.tsx",  
+    "src/pages/api/auth/[...nextauth].js" ,
+    "src/utils/Categories.jsx"
+  ],
+  "exclude": [ 
+    "src/pages/index.jsx", 
+    "src/pages/_app.jsx",
     "node_modules"
   ]
 }
