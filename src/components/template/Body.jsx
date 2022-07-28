@@ -6,16 +6,12 @@ export default function Body(Props) {
 
     return (
         <>
-            <Header />
-            
-                <Title />
-          
-                    <div className="container">                      
-                            {Props.children}                      
-                    </div>
-               
-            
-            <Footer />
+        <Header />            
+            <Title />          
+                <div className="container">                      
+                        {Props.children}                      
+                </div>
+        <Footer />
         </>
     ) 
 }

@@ -1,0 +1,23 @@
+version: "3.8"
+services:  
+  mysql:
+    image: mysql:8.0.27
+    container_name: mysql
+    tty: true
+    stdin_open: true    
+    env_file:
+      ./.env 
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: pma
+    links:
+      - mysql
+    env_file:
+      ./.env 
+    restart: always
+    ports:
+      - 8085:80

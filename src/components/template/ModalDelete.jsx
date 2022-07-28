@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAuth } from "../../context/AuthContext"
+import { useAuth } from "../context/AuthContext"
 import Spinner from "./Spinner";
 import { CloseModal } from "../../utils/Functions"
 

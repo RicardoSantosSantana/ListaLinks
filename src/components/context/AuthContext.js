@@ -1,7 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import React from "react";
-import { FilterLinksByText } from "../utils/Functions";
- 
+import { FilterLinksByText } from "../../utils/Functions";
+import { useSession } from "next-auth/react"
+
 const AuthContext = createContext();
   
 export function useAuth() {
@@ -9,6 +10,7 @@ export function useAuth() {
 }
 
 export default function AuthProvider(Props) {
+    const { data: session } = useSession();
 
     const [DataList, setDataList] = useState([])
     const [data, setData] = useState([])
@@ -18,15 +20,20 @@ export default function AuthProvider(Props) {
     const setHTTPMethod = (method) =>{
         setHTTP_SELECT_METHOD({method})
     }
-    useEffect(()=>{        
-        const fetchData = async () => {
+    
+    useEffect(()=>{
+
+        if(session) {
+            const fetchData = async () => {
             const res = await fetch("/api/links");
             const posts = await res.json();
             setData(posts);
             setDataList(posts);
-          };
-          fetchData();
-    },[DataListaChange])
+            };
+            fetchData();
+        }
+ 
+    },[DataListaChange,session])
  
 
     const setList = (value) => {

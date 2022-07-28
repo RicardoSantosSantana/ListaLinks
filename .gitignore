@@ -5,10 +5,11 @@
 /node_modules
 /.pnp
 .pnp.js
-
+/docker/mysql
 # testing
 /coverage
-
+/docker/.env
+.env
 # next.js
 /.next/
 /out/

@@ -45,13 +45,20 @@ export default async function handler(req, res) {
   
   if (req.method === 'GET') {
 
-    dbPool.query('SELECT * FROM links', (error, results) => {
-      if (error) {
-        return res.status(400).send({ message:'Error on Get data', error: 'Error Select Data' })
-      }
-      res.status(200).json(results.rows)
-    })    
+    // dbPool.query('SELECT * FROM links', (error, results) => {
+    //   if (error) {
+    //     return res.status(400).send({ message:'Error on Get data', error: 'Error Select Data' })
+    //   }
+    //   res.status(200).json(results.rows)
+    // })    
+    const data = [
+      { id:1,link:'https://youtube.com.br',title:'YouTube é o titulo', description:'aqui uma breve descrição',id_user:1},
+      { id:2,link:'https://recibonline.com',title:'ReciboOnline é o titulo', description:'segunda uma breve descrição',id_user:1}
+    ]
+
+    res.status(200).json(data)
   }
+
 
   if (req.method === 'DELETE') {
 
